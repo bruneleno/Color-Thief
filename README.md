@@ -7,4 +7,5 @@ Launch it and it will copy the hex code of the next color you click. It has a li
 
 
 # Install
-Just run the AHK or EXE file in a folder that also contarins the Cursor_Icon folder. For the AHK file you'll need [Autohotkey](https://www.autohotkey.com/) installed
+Get the compiled release on the [releases](https://github.com/bruneleno/Quickest-Color-Picker-Ever/releases) page. Just run the EXE file in a folder that also contarins the Support_Files folder.
+
