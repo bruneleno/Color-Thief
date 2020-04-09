@@ -11,7 +11,71 @@ StartMenu = %A_AppData%\Microsoft\Windows\Start Menu\Programs\
 LinkFile = %A_AppData%\Microsoft\Windows\Start Menu\Programs\Color Picker.lnk
 IniRead, StartMenu, %A_ScriptDir%\Support_Files\settings.ini, StartMenu, present
 
+
+
+if StartMenu = 1
+goto PickColor
 if StartMenu != 1
+goto Setup
+
+
+SetSystemCursor()
+{
+	Cursors = 32512,32513,32514,32515,32516,32640,32641,32642,32643,32644,32645,32646,32648,32649,32650,32651
+	Loop, Parse, Cursors, `,
+	{
+		Cursor = %A_ScriptDir%\Support_Files\%A_Loopfield%.cur
+		CursorHandle := DllCall( "LoadCursorFromFile", Str,Cursor )
+		DllCall( "SetSystemCursor", Uint,CursorHandle, Int,A_Loopfield )
+	}
+}
+
+
+RestoreCursors() 
+{
+	SPI_SETCURSORS := 0x57
+	DllCall( "SystemParametersInfo", UInt,SPI_SETCURSORS, UInt,0, UInt,0, UInt,0 )
+}
+
+
+PickColor:
+{
+SetSystemCursor()
+sleep, 100
+Loop 
+{
+MouseGetPos, X, Y
+X := X+16
+Y := Y+12
+PixelGetColor, hex, %X%, %Y%, RGB
+hex := SubStr(hex, 3)
+tooltip, #%hex%
+if GetKeyState("LButton") = 1
+break
+loop, 10 {
+sleep, 12
+if GetKeyState("LButton") = 1
+brk = 1
+break
+}
+if brk = 1
+{
+brk = 0
+break
+}
+}
+clipboard = %hex%
+tooltip, Valor copiado!
+RestoreCursors()
+sleep, 900
+tooltip
+ExitApp
+}
+return
+
+
+
+Setup:
 {
 Gui, Setter:New
 Gui, Setter:Color , FFFFFF
@@ -25,6 +89,9 @@ Gui, Setter:Add, Checkbox, Checked vShortcutBox gShortcutBox, Assign a keyboard 
 Gui, Setter:Font, s09 q5
 Gui, Add, Hotkey, x40 vChosenHotkey gChosenHotkey Limit178, ^!
 Gui, Setter:Font, s11 q5
+Gui, Setter:Add, Checkbox, Checked vStartApp x20, Launch app when done?
+Gui, Setter:Font, s7 q5
+Gui, Setter:Add, Text, cGray, You won't see this next time you launch the app.`nTo open these settings, press "F1" while running the app.
 Gui, Setter:Add, Button, x20 w280 gButtonOK vButtonOK, OK
 Gui, Setter:Show, NA AutoSize
 
@@ -74,64 +141,21 @@ FileCreateShortcut, %Target%, %LinkFile%
 }
 IniWrite, 1, %A_ScriptDir%\Support_Files\settings.ini, StartMenu, present
 Gui, Setter:Destroy
+if StartApp = 1
+reload
+else
+ExitApp
 return
 
 
 SetterGuiClose:
 Gui, Setter:Destroy
-return
-
-
-}
-
-SetSystemCursor()
-{
-	Cursors = 32512,32513,32514,32515,32516,32640,32641,32642,32643,32644,32645,32646,32648,32649,32650,32651
-	Loop, Parse, Cursors, `,
-	{
-		Cursor = %A_ScriptDir%\Support_Files\%A_Loopfield%.cur
-		CursorHandle := DllCall( "LoadCursorFromFile", Str,Cursor )
-		DllCall( "SetSystemCursor", Uint,CursorHandle, Int,A_Loopfield )
-	}
-}
-
-
-RestoreCursors() 
-{
-	SPI_SETCURSORS := 0x57
-	DllCall( "SystemParametersInfo", UInt,SPI_SETCURSORS, UInt,0, UInt,0, UInt,0 )
-}
-
-
-SetSystemCursor()
-sleep, 100
-
-
-Loop 
-{
-MouseGetPos, X, Y
-X := X+16
-Y := Y+12
-PixelGetColor, hex, %X%, %Y%, RGB
-hex := SubStr(hex, 3)
-tooltip, #%hex%
-if GetKeyState("LButton") = 1
-break
-loop, 10 {
-sleep, 12
-if GetKeyState("LButton") = 1
-brk = 1
-break
-}
-if brk = 1
-{
-brk = 0
-break
-}
-}
-clipboard = %hex%
-tooltip, Valor copiado!
-RestoreCursors()
-sleep, 900
-tooltip
 ExitApp
+return
+}
+
+F1::
+RestoreCursors()
+IniWrite, 0, %A_ScriptDir%\Support_Files\settings.ini, StartMenu, present
+reload
+return
