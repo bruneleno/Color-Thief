@@ -3,7 +3,7 @@ Launch it and it will copy the hex code of the next color you click. It has a li
 
 
 # Support my work
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EEQ5C56XVNBAN&source=url)</br></br>
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EEQ5C56XVNBAN&source=url)</br></br></br></br></br></br>
 
 
 # [Download and install](https://github.com/bruneleno/Quickest-Color-Picker-Ever/releases)
