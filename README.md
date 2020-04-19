@@ -1,4 +1,4 @@
-# Quickest-Color-Picker-Ever
+# Quick Color Picker
 Launch it and it will copy the hex code of the next color you click. It has a little tooltip with the hex code as well.
 
 
