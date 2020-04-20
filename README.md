@@ -1,5 +1,5 @@
-# Quickest Color Picker
-Launch it and it will copy the hex code of the next color you click. It has a little tooltip with the hex code as well.
+# Color Thief
+Launch it, from the start menu icon or from a shortcut of your choice, and it will copy the hex code of the next color you click. Simple as that.
 </br></br>
 
 # Support my work
