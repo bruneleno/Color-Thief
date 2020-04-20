@@ -65,7 +65,7 @@ break
 }
 }
 clipboard = %hex%
-tooltip, Valor copiado!
+tooltip, Copied to clipboard!
 RestoreCursors()
 sleep, 900
 tooltip
@@ -79,7 +79,7 @@ Setup:
 {
 Gui, Setter:New
 Gui, Setter:Color , FFFFFF
-Gui, Setter:Show, w380 h60, Color Picker Settings
+Gui, Setter:Show, w380 h60, Color Thief Settings
 Gui, Setter:-MaximizeBox -MinimizeBox
 Gui, Setter:Font, s16 q5
 Gui, Setter:Add, Text,, Hello.`nLet's define some shortcuts.
